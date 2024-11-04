@@ -67,7 +67,7 @@ dependencies:
   catcher_2: ^2.0.0
   receive_sharing_intent:
     git:
-      url: https://github.com/ilzc/receive_sharing_intent
+      url: https://github.com/KasemJaffer/receive_sharing_intent/tree/1.8.0
   # XDU Planet
   flutter_widget_from_html_core: any
   fwfh_cached_network_image: ^0.14.3
