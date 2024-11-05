@@ -549,7 +549,7 @@ class ClassTableFile extends EhallSession {
               f.classCode == e.classCode &&
               listEquals(f.originalClassRange, e.newClassRange) &&
               listEquals(f.originalAffectedWeeksList, e.newAffectedWeeksList) &&
-              f.originalWeek == e.newWeek&&
+              f.originalWeek == e.newWeek &&
               f.originalTeacherData == e.newTeacherData) {
             flag = true;
             toRemove = f;
