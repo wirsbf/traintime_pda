@@ -32,7 +32,7 @@ class SportCard extends StatelessWidget {
         }
       },
       icon: MingCuteIcons.mgc_run_fill,
-      nameKey: "homepage.toolbox.sport",
+      name: "体育信息",
     );
   }
 }

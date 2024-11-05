@@ -3,7 +3,6 @@
 
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:watermeter/page/classtable/class_table_view/class_organized_data.dart';
 import 'package:watermeter/page/classtable/classtable_constant.dart';
 import 'package:watermeter/page/classtable/classtable_state.dart';
@@ -46,13 +45,7 @@ class _WeekChoiceViewState extends State<WeekChoiceView> {
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           AutoSizeText(
-            FlutterI18n.translate(
-              context,
-              "classtable.week_title",
-              translationParams: {
-                "week": (index + 1).toString(),
-              },
-            ),
+            "第${index + 1}周",
             style: TextStyle(
               fontWeight: index == controller.currentWeek
                   ? FontWeight.bold

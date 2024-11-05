@@ -6,7 +6,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:styled_widget/styled_widget.dart';
 import 'package:watermeter/model/xidian_ids/library.dart';
 import 'package:watermeter/repository/logger.dart';
@@ -63,23 +62,16 @@ class BookInfoCard extends StatelessWidget {
         const SizedBox(height: 2),
         Text.rich(
           TextSpan(children: [
-            TextSpan(
-              text: FlutterI18n.translate(
-                context,
-                "library.author",
-              ),
-              style: const TextStyle(
+            const TextSpan(
+              text: "作者 ",
+              style: TextStyle(
                 fontSize: 14,
                 fontWeight: FontWeight.w600,
                 color: Color(0xFFBFBFBF),
               ),
             ),
             TextSpan(
-              text: toUse.author ??
-                  FlutterI18n.translate(
-                    context,
-                    "library.not_provided",
-                  ),
+              text: toUse.author ?? "没有提供",
               style: const TextStyle(
                 fontSize: 14,
                 fontWeight: FontWeight.w600,
@@ -90,23 +82,16 @@ class BookInfoCard extends StatelessWidget {
           overflow: TextOverflow.ellipsis,
         ),
         Text.rich(TextSpan(children: [
-          TextSpan(
-            text: FlutterI18n.translate(
-              context,
-              "library.publish_house",
-            ),
-            style: const TextStyle(
+          const TextSpan(
+            text: "出版社 ",
+            style: TextStyle(
               fontSize: 14,
               fontWeight: FontWeight.w600,
               color: Color(0xFFBFBFBF),
             ),
           ),
           TextSpan(
-            text: toUse.publisherHouse ??
-                FlutterI18n.translate(
-                  context,
-                  "library.not_provided",
-                ),
+            text: toUse.publisherHouse ?? "没有相关信息",
             style: const TextStyle(
               fontSize: 14,
               fontWeight: FontWeight.w600,
@@ -114,12 +99,9 @@ class BookInfoCard extends StatelessWidget {
           ),
         ])),
         Text.rich(TextSpan(children: [
-          TextSpan(
-            text: FlutterI18n.translate(
-              context,
-              "library.call_number",
-            ),
-            style: const TextStyle(
+          const TextSpan(
+            text: "索书号 ",
+            style: TextStyle(
               fontSize: 14,
               fontWeight: FontWeight.w600,
               color: Color(0xFFBFBFBF),
@@ -146,12 +128,9 @@ class BookInfoCard extends StatelessWidget {
                   fontWeight: FontWeight.w600,
                 ),
               ),
-              TextSpan(
-                text: FlutterI18n.translate(
-                  context,
-                  "library.avaliable_borrow",
-                ),
-                style: const TextStyle(
+              const TextSpan(
+                text: "可借",
+                style: TextStyle(
                   fontSize: 12,
                   fontWeight: FontWeight.w600,
                   color: Color(0xFFBFBFBF),
@@ -176,12 +155,9 @@ class BookInfoCard extends StatelessWidget {
                   fontWeight: FontWeight.w600,
                 ),
               ),
-              TextSpan(
-                text: FlutterI18n.translate(
-                  context,
-                  "library.storage",
-                ),
-                style: const TextStyle(
+              const TextSpan(
+                text: "馆藏",
+                style: TextStyle(
                   fontSize: 12,
                   fontWeight: FontWeight.w600,
                   color: Color(0xFFBFBFBF),
@@ -202,5 +178,12 @@ class BookInfoCard extends StatelessWidget {
         )
         .clipRRect(all: 16)
         .padding(all: 4);
+  }
+
+  String validateList(List<String>? inputList) {
+    if (inputList == null || inputList.isEmpty) {
+      return "没有相关信息";
+    }
+    return inputList.first;
   }
 }

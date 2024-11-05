@@ -94,7 +94,7 @@ class ClassOrgainzedData {
         color: color,
         name: "${subject.subject}${subject.type}",
         place: "${subject.place} "
-            "${subject.seat == null ? "" : "${subject.seat}"}",
+            "${subject.seat == null ? "" : "${subject.seat}座"}",
       );
 
   factory ClassOrgainzedData.fromExperiment(

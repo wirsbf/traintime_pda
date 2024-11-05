@@ -2,7 +2,6 @@
 // SPDX-License-Identifier: MPL-2.0 OR Apache-2.0
 
 import 'package:flutter/material.dart';
-import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:styled_widget/styled_widget.dart';
 import 'package:watermeter/model/xidian_ids/classtable.dart';
 import 'package:watermeter/page/classtable/classtable_state.dart';
@@ -20,34 +19,20 @@ class NotArrangedClassList extends StatelessWidget {
 
     return Scaffold(
         appBar: AppBar(
-          title: Text(FlutterI18n.translate(
-            context,
-            "classtable.not_arranged_page.title",
-          )),
+          title: const Text("没有时间安排的科目"),
         ),
         body: Builder(builder: (context) {
           if (notArranged.isEmpty) {
-            return EmptyListView(
-              text: FlutterI18n.translate(
-                context,
-                "classtable.not_arranged_page.empty_message",
-              ),
-            );
+            return const EmptyListView(text: "目前全部课程均有时间安排");
           }
           return ListView.builder(
             itemCount: notArranged.length,
             itemBuilder: (context, index) => ListTile(
               title: Text(notArranged[index].name),
               subtitle: Text(
-                FlutterI18n.translate(
-                  context,
-                  "classtable.not_arranged_page.content",
-                  translationParams: {
-                    "classCode": notArranged[index].code ?? "",
-                    "classNumber": notArranged[index].number ?? "",
-                    "teacher": notArranged[index].teacher ?? "没有数据",
-                  },
-                ),
+                "编号: ${notArranged[index].code} | "
+                "${notArranged[index].number} 班\n"
+                "老师: ${notArranged[index].teacher ?? "没有数据"}",
               ),
             ),
           ).constrained(maxWidth: 600);

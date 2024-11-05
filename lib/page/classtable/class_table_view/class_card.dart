@@ -2,7 +2,6 @@
 // SPDX-License-Identifier: MPL-2.0 OR  Apache-2.0
 
 import 'package:flutter/material.dart';
-import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:styled_widget/styled_widget.dart';
 import 'package:watermeter/model/xidian_ids/exam.dart';
 import 'package:watermeter/model/xidian_ids/experiment.dart';
@@ -55,10 +54,7 @@ class ClassCard extends StatelessWidget {
                     onPressed: () {
                       /// The way to show the class info of the period.
                       BothSideSheet.show(
-                        title: FlutterI18n.translate(
-                          context,
-                          "classtable.class_card.title",
-                        ),
+                        title: "日程信息",
                         child: ArrangementDetail(
                           information: List.generate(data.length, (index) {
                             if (data.elementAt(index) is Subject ||
@@ -92,10 +88,7 @@ class ClassCard extends StatelessWidget {
                           ),
                         ),
                         Text(
-                          "@${place ?? FlutterI18n.translate(
-                                context,
-                                "classtable.class_card.unknown_classroom",
-                              )}",
+                          "@${place ?? "未知教室"}",
                           style: TextStyle(
                             color: color.shade900,
                             fontSize: isPhone(context) ? 10 : 12,
@@ -103,13 +96,7 @@ class ClassCard extends StatelessWidget {
                         ).expanded(),
                         if (data.length > 1)
                           Text(
-                            FlutterI18n.translate(
-                              context,
-                              "classtable.class_card.remains_hint",
-                              translationParams: {
-                                "remain_count": (data.length - 1).toString(),
-                              },
-                            ),
+                            "还有${data.length - 1}个日程",
                             style: TextStyle(
                               color: color.shade900,
                               fontSize: isPhone(context) ? 10 : 12,

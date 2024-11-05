@@ -7,7 +7,6 @@ import 'dart:io';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:styled_widget/styled_widget.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:pinyin/pinyin.dart';
@@ -186,7 +185,6 @@ class EasterEggPage extends StatefulWidget {
 }
 
 class _EasterEggPageState extends State<EasterEggPage> {
-
   final String urlApple = "https://www.bilibili.com/video/BV1wN4y1L7Ut";
 
   final String urlOthers = "https://www.bilibili.com/video/BV1HN411Y7Ct?p=7";
@@ -257,17 +255,7 @@ Ballad of Sir Frankie Crisp (Let It Roll)
 by George Harrison
 from All Things Must Pass, 1970
 
-Once upon a time, there's a 'Hard Lovin' Man called Ray, whose understand the power of the Railgun called 'Flight of the Rat. 
-
-Once after a battle with a 'Bloodsucker, he was tired as a high school student. He discovered a Purple Rat in the Square Forest.
-
-Unknown her name, "She like a sweet potato, like my Rat gun. Just call her Sweet Purple Potato Ball, idk...", he thought. And he brought her to his home(maybe?)
-
-The rat is clever, actually she is a angel named Elliot. We don't know why her soul inside a rat. Forgive me, I am drunked.
-
-She knows he is the 'Child of the Time. They may argue, may laugh. In my opinion, she lighten Ray's seemly colorless life.
-
-Don't know how time flies, she made he faster in running, attacking. With the power of the 'Rat gun', he become the threating 'Speed King.
+Ray and Elliot are thinking privately about pulling Partner Classtable request for my program since July, 2024.
 '''
         : '''
 And may you never lay your head down
@@ -302,18 +290,7 @@ John Martyn, covered by Eric Clapton
 from Slowhand, 1977
 
 Translated by Ray (Elliot Edition)
-
-Once upon a time, there's a 'Hard Lovin' Man called Ray, whose understand the power of the Railgun called 'Flight of the Rat. 
-
-Once after a battle with a 'Bloodsucker, he was tired as a high school student. He discovered a Purple Rat in the Square Forest.
-
-Unknown her name, "She like a sweet potato, like my Rat gun. Just call her Sweet Purple Potato Ball, idk...", he thought. And he brought her to his home(maybe?)
-
-The rat is clever, actually she is a angel named Elliot. We don't know why her soul inside a rat. Forgive me, I am drunked.
-
-She knows he is the 'Child of the Time. They may argue, may laugh. In my opinion, she lighten Ray's seemly colorless life.
-
-Don't know how time flies, she made he faster in running, attacking. With the power of the 'Rat gun', he become the threating 'Speed King.
+Ray and Elliot are thinking privately about pulling Partner Classtable request for my program since July, 2024.
 ''',
   );
 
@@ -351,14 +328,7 @@ Don't know how time flies, she made he faster in running, attacking. With the po
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          FlutterI18n.translate(
-            context,
-            "setting.easter_egg_page.title",
-          ),
-        ),
-      ),
+      appBar: AppBar(title: const Text("你找到了彩蛋")),
       body: [
         const SizedBox(height: 16.0),
         TextFormField(
@@ -382,10 +352,7 @@ Don't know how time flies, she made he faster in running, attacking. With the po
         [
           TextButton(
             onPressed: onSubmitted,
-            child: Text(FlutterI18n.translate(
-              context,
-              "setting.easter_egg_page.encrypt",
-            )),
+            child: const Text("加密上面的文本"),
           ),
           TextButton(
             onPressed: () => launchUrl(
@@ -394,10 +361,7 @@ Don't know how time flies, she made he faster in running, attacking. With the po
               ),
               mode: LaunchMode.externalApplication,
             ),
-            child: Text(FlutterI18n.translate(
-              context,
-              "setting.easter_egg_page.listen",
-            )),
+            child: const Text("听歌时间"),
           ),
           TextButton(
             onPressed: () => launchUrl(

@@ -4,7 +4,6 @@
 // A captcha input dialog.
 
 import 'package:flutter/material.dart';
-import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:watermeter/page/public_widget/toast.dart';
 
 class CaptchaInputDialog extends StatelessWidget {
@@ -21,10 +20,7 @@ class CaptchaInputDialog extends StatelessWidget {
     );
 
     return AlertDialog(
-      title: Text(FlutterI18n.translate(
-        context,
-        "login.captcha_window.title",
-      )),
+      title: const Text('请输入验证码'),
       titleTextStyle: const TextStyle(
         fontSize: 20,
         color: Colors.black,
@@ -39,10 +35,7 @@ class CaptchaInputDialog extends StatelessWidget {
             style: const TextStyle(fontSize: 20),
             controller: _captchaController,
             decoration: InputDecoration(
-              hintText: FlutterI18n.translate(
-                context,
-                "login.captcha_window.hint",
-              ),
+              hintText: "输入验证码",
               fillColor: Colors.grey.withOpacity(0.4),
               filled: true,
               contentPadding: const EdgeInsets.symmetric(horizontal: 20),
@@ -56,28 +49,16 @@ class CaptchaInputDialog extends StatelessWidget {
       ),
       actions: <Widget>[
         TextButton(
-          child: Text(FlutterI18n.translate(
-            context,
-            "cancel",
-          )),
+          child: const Text('取消'),
           onPressed: () {
             Navigator.pop(context);
           },
         ),
         TextButton(
-          child: Text(FlutterI18n.translate(
-            context,
-            "confirm",
-          )),
+          child: const Text('提交'),
           onPressed: () async {
             if (_captchaController.text.isEmpty) {
-              showToast(
-                context: context,
-                msg: FlutterI18n.translate(
-                  context,
-                  "login.captcha_window.message_on_empty",
-                ),
-              );
+              showToast(context: context, msg: '请输入验证码');
             } else {
               Navigator.of(context).pop(_captchaController.text);
             }

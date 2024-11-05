@@ -6,7 +6,6 @@
 import 'dart:math';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:watermeter/page/setting/about_page/about_page.dart';
 import 'package:watermeter/repository/logger.dart';
 import 'package:watermeter/page/public_widget/toast.dart';
@@ -75,7 +74,7 @@ class _LoginWindowState extends State<LoginWindow> {
             controller: _idsAccountController,
             decoration: _inputDecoration(
               iconData: MingCuteIcons.mgc_user_3_fill,
-              hintText: FlutterI18n.translate(context, "login.identity_number"),
+              hintText: "学号",
             ),
             style: TextStyle(
               fontSize: _inputFieldFontSize,
@@ -102,7 +101,7 @@ class _LoginWindowState extends State<LoginWindow> {
             ),
             decoration: _inputDecoration(
               iconData: MingCuteIcons.mgc_safe_lock_fill,
-              hintText: FlutterI18n.translate(context, "login.password"),
+              hintText: "一站式登录密码",
               suffixIcon: IconButton(
                 icon: Icon(
                   _couldNotView ? Icons.visibility : Icons.visibility_off,
@@ -149,13 +148,7 @@ class _LoginWindowState extends State<LoginWindow> {
               if (_idsPasswordController.text.isNotEmpty) {
                 await login();
               } else {
-                showToast(
-                  context: context,
-                  msg: FlutterI18n.translate(
-                    context,
-                    "login.incorrect_password_pattern",
-                  ),
-                );
+                showToast(context: context, msg: '用户名或密码不符合要求，学号必须 11 位且密码非空');
               }
             },
           ),
@@ -168,18 +161,10 @@ class _LoginWindowState extends State<LoginWindow> {
     bool isGood = true;
     ProgressDialog pd = ProgressDialog(context: context);
     pd.show(
-      msg: FlutterI18n.translate(
-        context,
-        "login.on_login_progress",
-      ),
+      msg: '正在登录学校一站式',
       max: 100,
       hideValue: true,
-      completed: Completed(
-        completedMsg: FlutterI18n.translate(
-          context,
-          "login.complete_login",
-        ),
-      ),
+      completed: Completed(completedMsg: "登录成功"),
     );
     EhallSession ses = EhallSession();
 
@@ -242,36 +227,14 @@ class _LoginWindowState extends State<LoginWindow> {
         } else if (e is DioException) {
           if (e.message == null) {
             if (e.response == null) {
-              showToast(
-                context: context,
-                msg: FlutterI18n.translate(
-                  context,
-                  "login.failed_login_cannot_connect_to_server",
-                ),
-              );
+              showToast(context: context, msg: "无法连接到服务器。");
             } else {
               showToast(
-                context: context,
-                msg: FlutterI18n.translate(
-                  context,
-                  "login.failed_login_with_code",
-                  translationParams: {
-                    "code": e.response!.statusCode.toString()
-                  },
-                ),
-              );
+                  context: context,
+                  msg: "请求失败，响应状态码：${e.response!.statusCode}。");
             }
           } else {
-            showToast(
-              context: context,
-              msg: FlutterI18n.translate(
-                context,
-                "login.failed_login_with_message",
-                translationParams: {
-                  "message": e.message.toString(),
-                },
-              ),
-            );
+            showToast(context: context, msg: "请求失败。${e.message}");
           }
         } else {
           log.warning(
@@ -293,10 +256,7 @@ class _LoginWindowState extends State<LoginWindow> {
           );
           showToast(
             context: context,
-            msg: FlutterI18n.translate(
-              context,
-              "login.failed_login_other",
-            ),
+            msg: "未知错误，请联系开发者。",
           );
         }
       }

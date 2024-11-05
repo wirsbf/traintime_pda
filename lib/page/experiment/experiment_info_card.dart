@@ -2,7 +2,6 @@
 // SPDX-License-Identifier: MPL-2.0
 
 import 'package:flutter/material.dart';
-import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:watermeter/model/xidian_ids/experiment.dart';
 import 'package:watermeter/page/public_widget/public_widget.dart';
 import 'package:watermeter/page/public_widget/re_x_card.dart';
@@ -52,12 +51,8 @@ class ExperimentInfoCard extends StatelessWidget {
                     flex: 1,
                     child: InformationWithIcon(
                       icon: Icons.book,
-                      text: data!.reference.isNotEmpty
-                          ? data!.reference
-                          : FlutterI18n.translate(
-                              context,
-                              "experiment.not_provided",
-                            ),
+                      text:
+                          data!.reference.isNotEmpty ? data!.reference : "未提供",
                     ),
                   ),
                 ],

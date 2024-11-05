@@ -2,7 +2,6 @@
 // SPDX-License-Identifier: MPL-2.0
 
 import 'package:flutter/material.dart';
-import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:watermeter/page/public_widget/toast.dart';
 import 'package:ming_cute_icons/ming_cute_icons.dart';
 import 'package:watermeter/page/creative_job/creative_job.dart';
@@ -18,19 +17,13 @@ class CreativeCard extends StatelessWidget {
     return SmallFunctionCard(
       onTap: () async {
         if (offline) {
-          showToast(
-            context: context,
-            msg: FlutterI18n.translate(
-              context,
-              "homepage.offline_mode",
-            ),
-          );
+          showToast(context: context, msg: "脱机模式下，一站式相关功能全部禁止使用");
         } else {
           context.pushReplacement(const CreativeJobView());
         }
       },
       icon: MingCuteIcons.mgc_star_line,
-      nameKey: "homepage.toolbox.creative",
+      name: "双创竞赛",
     );
   }
 }

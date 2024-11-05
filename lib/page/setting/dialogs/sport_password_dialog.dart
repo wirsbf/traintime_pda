@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:watermeter/page/public_widget/toast.dart';
 import 'package:watermeter/repository/preference.dart' as user_perference;
 
@@ -41,19 +40,13 @@ class _SportPasswordDialogState extends State<SportPasswordDialog> {
   Widget build(BuildContext context) {
     return PopScope(
       child: AlertDialog(
-        title: Text(FlutterI18n.translate(
-          context,
-          "setting.change_sport_title",
-        )),
+        title: const Text('修改体育系统密码'),
         content: TextField(
           autofocus: true,
           controller: _sportPasswordController,
           obscureText: _couldView,
           decoration: InputDecoration(
-            hintText: FlutterI18n.translate(
-              context,
-              "setting.change_password_dialog.input_hint",
-            ),
+            hintText: "请在此输入密码",
             border: const OutlineInputBorder(),
             suffixIcon: IconButton(
               icon: Icon(_couldView ? Icons.visibility : Icons.visibility_off),
@@ -67,19 +60,13 @@ class _SportPasswordDialogState extends State<SportPasswordDialog> {
         ),
         actions: <Widget>[
           TextButton(
-            child: Text(FlutterI18n.translate(
-              context,
-              "cancel",
-            )),
+            child: const Text('取消'),
             onPressed: () {
               Navigator.of(context).pop<bool>(false); // 返回 false
             },
           ),
           TextButton(
-            child: Text(FlutterI18n.translate(
-              context,
-              "confirm",
-            )),
+            child: const Text('提交'),
             onPressed: () async {
               if (_sportPasswordController.text.isNotEmpty) {
                 await user_perference.setString(
@@ -90,13 +77,7 @@ class _SportPasswordDialogState extends State<SportPasswordDialog> {
                   Navigator.of(context).pop<bool>(true); // 返回 true
                 }
               } else {
-                showToast(
-                  context: context,
-                  msg: FlutterI18n.translate(
-                    context,
-                    "setting.change_password_dialog.blank_input",
-                  ),
-                );
+                showToast(context: context, msg: "输入空白!");
               }
             },
           ),

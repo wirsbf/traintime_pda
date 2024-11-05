@@ -205,8 +205,7 @@ class LibrarySession extends IDSSession {
       ).then((value) => jsonDecode(value.data));
 
       if (!isSuccess["status"]) {
-        throw NotFetchLibraryException(
-            message: "Login failed: ${isSuccess["status"]}");
+        throw NotFetchLibraryException(message: "登陆失败: ${isSuccess["status"]}");
       }
 
       response = await dio.get(destinationURL, queryParameters: {
@@ -243,5 +242,5 @@ class LibrarySession extends IDSSession {
 
 class NotFetchLibraryException implements Exception {
   final String message;
-  NotFetchLibraryException({this.message = "Error detected."});
+  NotFetchLibraryException({this.message = "发生错误"});
 }

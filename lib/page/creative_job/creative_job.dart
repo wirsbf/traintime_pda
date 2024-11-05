@@ -1,7 +1,6 @@
 // Copyright 2023 BenderBlog Rodriguez and contributors.
 // SPDX-License-Identifier: MPL-2.0
 
-import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:watermeter/page/public_widget/both_side_sheet.dart';
 import 'package:easy_refresh/easy_refresh.dart';
 import 'package:flutter/material.dart';
@@ -116,10 +115,7 @@ class _CreativeJobViewState extends State<CreativeJobView> {
                     filled: true,
                     contentPadding:
                         const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                    hintText: FlutterI18n.translate(
-                      context,
-                      "creative_job.search_hint",
-                    ),
+                    hintText: "搜索需求",
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(100),
                       borderSide: BorderSide.none,
@@ -143,10 +139,7 @@ class _CreativeJobViewState extends State<CreativeJobView> {
                     child: CategoryChoiceView(
                       data: searchTags ?? ("", []),
                     ),
-                    title: FlutterI18n.translate(
-                      context,
-                      "creative_job.choice_type",
-                    ),
+                    title: "选择种类",
                   );
                   if (mounted) {
                     setState(() {
@@ -154,10 +147,7 @@ class _CreativeJobViewState extends State<CreativeJobView> {
                     });
                   }
                 },
-                child: Text(FlutterI18n.translate(
-                  context,
-                  "creative_job.position_type",
-                )),
+                child: const Text("职位类型"),
               ),
             ),
           ],
@@ -165,30 +155,12 @@ class _CreativeJobViewState extends State<CreativeJobView> {
       ),
       body: EasyRefresh(
         footer: ClassicFooter(
-          dragText: FlutterI18n.translate(
-            context,
-            "drag_text",
-          ),
-          readyText: FlutterI18n.translate(
-            context,
-            "ready_text",
-          ),
-          processingText: FlutterI18n.translate(
-            context,
-            "processing_text",
-          ),
-          processedText: FlutterI18n.translate(
-            context,
-            "processed_text",
-          ),
-          noMoreText: FlutterI18n.translate(
-            context,
-            "no_more_text",
-          ),
-          failedText: FlutterI18n.translate(
-            context,
-            "failed_text",
-          ),
+          dragText: '上拉请求更多'.tr,
+          readyText: '正在加载......'.tr,
+          processingText: '正在加载......'.tr,
+          processedText: '请求成功'.tr,
+          noMoreText: '数据没有更多'.tr,
+          failedText: '数据获取失败更多'.tr,
           infiniteOffset: null,
         ),
         onLoad: () async {
@@ -206,23 +178,16 @@ class _CreativeJobViewState extends State<CreativeJobView> {
               : isSearching.value
                   ? const Center(child: CircularProgressIndicator())
                   : jobs.isNotEmpty
-                      ? EmptyListView(
-                          text: FlutterI18n.translate(
-                          context,
-                          "creative_job.no_result",
-                        ))
-                      : Column(
+                      ? const EmptyListView(text: "没有搜索到结果")
+                      : const Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            const Icon(
+                            Icon(
                               Icons.search,
                               size: 96,
                             ),
-                            const Divider(color: Colors.transparent),
-                            Text(FlutterI18n.translate(
-                              context,
-                              "creative_job.please_search",
-                            )),
+                            Divider(color: Colors.transparent),
+                            Text("请在上面搜索框搜索"),
                           ],
                         ),
         ),
@@ -270,25 +235,15 @@ class CreativeJobListTile extends StatelessWidget {
           Wrap(
             spacing: 4.0,
             children: [
-              Text(FlutterI18n.translate(
-                context,
-                "creative_job.query_for_person",
-                translationParams: {
-                  "exceptNumber": job.exceptNumber.toString(),
-                },
-              )),
+              Text(
+                "招募 ${job.exceptNumber} 人 · ",
+              ),
               Text(
                 "${job.project.name} · ",
               ),
-              Text(FlutterI18n.translate(
-                context,
-                "creative_job.end_time",
-                translationParams: {
-                  /// TODO: change it to locale...
-                  "endTime": Jiffy.parseFromDateTime(job.endTime)
-                      .format(pattern: "yyyy 年 MM 月 dd 日"),
-                },
-              )),
+              Text(
+                "截止日期 ${Jiffy.parseFromDateTime(job.endTime).format(pattern: "yyyy 年 MM 月 dd 日")}",
+              ),
             ],
           ),
         ],

@@ -4,7 +4,6 @@
 import 'package:calendar_date_picker2/calendar_date_picker2.dart';
 import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:jiffy/jiffy.dart';
 import 'package:styled_widget/styled_widget.dart';
 import 'package:watermeter/model/xidian_ids/empty_classroom.dart';
@@ -139,14 +138,9 @@ class _EmptyClassroomSearchWindowState
                   }
                 });
               },
-              child: Text(FlutterI18n.translate(
-                context,
-                "empty_classroom.date",
-                translationParams: {
-                  "date": Jiffy.parseFromDateTime(time)
-                      .format(pattern: "yyyy-MM-dd")
-                },
-              )),
+              child: Text(
+                "日期 ${Jiffy.parseFromDateTime(time).format(pattern: "yyyy-MM-dd")}",
+              ),
             ).padding(right: 8),
             TextButton(
               style: TextButton.styleFrom(
@@ -158,11 +152,9 @@ class _EmptyClassroomSearchWindowState
                 });
                 chooseBuilding();
               },
-              child: Text(FlutterI18n.translate(
-                context,
-                "empty_classroom.building",
-                translationParams: {"building": chosen.name},
-              )),
+              child: Text(
+                "教学楼 ${chosen.name}",
+              ),
             ),
             TextField(
               controller: text,
@@ -176,10 +168,7 @@ class _EmptyClassroomSearchWindowState
                   horizontal: 16,
                   vertical: 8,
                 ),
-                hintText: FlutterI18n.translate(
-                  context,
-                  "empty_classroom.search_hint",
-                ),
+                hintText: "教室名称或者教室代码",
                 hintStyle: const TextStyle(fontSize: 14),
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(100),
@@ -202,35 +191,28 @@ class _EmptyClassroomSearchWindowState
           DataTable2(
             columnSpacing: 0,
             horizontalMargin: 6,
-            columns: [
+            columns: const [
               DataColumn2(
-                label: Center(
-                  child: Text(
-                    FlutterI18n.translate(
-                      context,
-                      "empty_classroom.classroom",
-                    ),
-                  ),
-                ),
+                label: Center(child: Text('教室')),
                 size: ColumnSize.L,
               ),
-              const DataColumn2(
+              DataColumn2(
                 label: Center(child: Text('1-2')),
                 size: ColumnSize.S,
               ),
-              const DataColumn2(
+              DataColumn2(
                 label: Center(child: Text('3-4')),
                 size: ColumnSize.S,
               ),
-              const DataColumn2(
+              DataColumn2(
                 label: Center(child: Text('5-6')),
                 size: ColumnSize.S,
               ),
-              const DataColumn2(
+              DataColumn2(
                 label: Center(child: Text('7-8')),
                 size: ColumnSize.S,
               ),
-              const DataColumn2(
+              DataColumn2(
                 label: Center(child: Text('9-10')),
                 size: ColumnSize.S,
               ),

@@ -2,7 +2,6 @@
 // SPDX-License-Identifier: MPL-2.0
 
 import 'package:flutter/material.dart';
-import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:watermeter/model/xidian_ids/exam.dart';
 import 'package:watermeter/page/public_widget/empty_list_view.dart';
 import 'package:watermeter/page/public_widget/public_widget.dart';
@@ -15,21 +14,11 @@ class NoArrangedInfo extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
-          FlutterI18n.translate(
-            context,
-            "exam.no_arrangement.title",
-          ),
-        ),
+        title: const Text("目前无安排考试的科目"),
       ),
       body: Builder(builder: (context) {
         if (list.isEmpty) {
-          return EmptyListView(
-            text: FlutterI18n.translate(
-              context,
-              "exam.no_arrangement.all_arranged",
-            ),
-          );
+          return const EmptyListView(text: "目前所有科目均已安排考试");
         }
         return DataList<ToBeArranged>(
           list: list,
@@ -48,13 +37,7 @@ class NoArrangedInfo extends StatelessWidget {
                   color: Theme.of(context).colorScheme.primary,
                 ),
               ),
-              subtitle: Text(
-                FlutterI18n.translate(
-                  context,
-                  "exam.no_arrangement.subtitle",
-                  translationParams: {"id": toUse.id},
-                ),
-              ),
+              subtitle: Text("编号: ${toUse.id}"),
             ),
           ),
         );

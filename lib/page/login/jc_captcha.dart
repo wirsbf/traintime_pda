@@ -9,7 +9,6 @@ import 'dart:typed_data';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:image/image.dart' as img;
 import 'package:styled_widget/styled_widget.dart';
 import 'package:watermeter/repository/logger.dart';
@@ -246,10 +245,7 @@ class _CaptchaWidgetState extends State<CaptchaWidget> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(FlutterI18n.translate(
-          context,
-          "login.slider_title",
-        )),
+        title: const Text("服务器认证服务"),
       ),
       body: FutureBuilder<SliderCaptchaClientProvider>(
         future: provider,

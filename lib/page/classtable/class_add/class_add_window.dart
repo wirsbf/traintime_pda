@@ -2,7 +2,6 @@
 // SPDX-License-Identifier: MPL-2.0 OR Apache-2.0
 
 import 'package:flutter/material.dart';
-import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:watermeter/page/public_widget/toast.dart';
 import 'package:styled_widget/styled_widget.dart';
 import 'package:watermeter/model/xidian_ids/classtable.dart';
@@ -94,33 +93,19 @@ class _ClassAddWindowState extends State<ClassAddWindow> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.toChange == null
-            ? FlutterI18n.translate(
-                context,
-                "classtable.class_add.add_class_title",
-              )
-            : FlutterI18n.translate(
-                context,
-                "classtable.class_add.change_class_title",
-              )),
+        title: Text(widget.toChange == null ? "添加课程" : "修改课程"),
         actions: [
           TextButton(
             onPressed: () async {
               if (classNameController.text.isEmpty) {
                 showToast(
                   context: context,
-                  msg: FlutterI18n.translate(
-                    context,
-                    "classtable.class_add.class_name_empty_message",
-                  ),
+                  msg: "必须输入课程名",
                 );
               } else if (!(week > 0 && week <= 7) || !(start <= stop)) {
                 showToast(
                   context: context,
-                  msg: FlutterI18n.translate(
-                    context,
-                    "classtable.class_add.wrong_time_message",
-                  ),
+                  msg: "输入的时间不对",
                 );
               } else if (widget.toChange == null) {
                 await controller
@@ -167,10 +152,7 @@ class _ClassAddWindowState extends State<ClassAddWindow> {
                 });
               }
             },
-            child: Text(FlutterI18n.translate(
-              context,
-              "classtable.class_add.save_button",
-            )),
+            child: const Text("保存"),
           ),
         ],
       ),
@@ -188,10 +170,7 @@ class _ClassAddWindowState extends State<ClassAddWindow> {
                     Icons.calendar_month,
                     color: color,
                   ),
-                  hintText: FlutterI18n.translate(
-                    context,
-                    "classtable.class_add.input_classname_hint",
-                  ),
+                  hintText: "课程名字(必填)",
                 ),
               ).padding(vertical: inputFieldVerticalPadding),
               TextField(
@@ -201,10 +180,7 @@ class _ClassAddWindowState extends State<ClassAddWindow> {
                     Icons.person,
                     color: color,
                   ),
-                  hintText: FlutterI18n.translate(
-                    context,
-                    "classtable.class_add.input_teacher_hint",
-                  ),
+                  hintText: "老师姓名(选填)",
                 ),
               ).padding(vertical: inputFieldVerticalPadding),
               TextField(
@@ -214,10 +190,7 @@ class _ClassAddWindowState extends State<ClassAddWindow> {
                     Icons.place,
                     color: color,
                   ),
-                  hintText: FlutterI18n.translate(
-                    context,
-                    "classtable.class_add.input_classroom_hint",
-                  ),
+                  hintText: "教室位置(选填)",
                 ),
               ).padding(vertical: inputFieldVerticalPadding),
             ],
@@ -242,10 +215,9 @@ class _ClassAddWindowState extends State<ClassAddWindow> {
                     color: color,
                     size: 16,
                   ),
-                  Text(FlutterI18n.translate(
-                    context,
-                    "classtable.class_add.input_week_hint",
-                  )).textStyle(TextStyle(color: color)).padding(left: 4),
+                  const Text("选择上课周次")
+                      .textStyle(TextStyle(color: color))
+                      .padding(left: 4),
                 ],
               ),
               const SizedBox(height: 8),
@@ -278,10 +250,9 @@ class _ClassAddWindowState extends State<ClassAddWindow> {
                     color: color,
                     size: 16,
                   ),
-                  Text(FlutterI18n.translate(
-                    context,
-                    "classtable.class_add.input_time_hint",
-                  )).textStyle(TextStyle(color: color)).padding(left: 4),
+                  const Text("选择上课时间")
+                      .textStyle(TextStyle(color: color))
+                      .padding(left: 4),
                 ],
               ),
               const SizedBox(height: 8),
@@ -289,18 +260,18 @@ class _ClassAddWindowState extends State<ClassAddWindow> {
                 children: [
                   Row(
                     children: [
-                      Text(FlutterI18n.translate(
-                        context,
-                        "classtable.class_add.input_time_weekday_hint",
-                      )).textStyle(TextStyle(color: color)).center().flexible(),
-                      Text(FlutterI18n.translate(
-                        context,
-                        "classtable.class_add.input_start_time_hint",
-                      )).textStyle(TextStyle(color: color)).center().flexible(),
-                      Text(FlutterI18n.translate(
-                        context,
-                        "classtable.class_add.input_end_time_hint",
-                      )).textStyle(TextStyle(color: color)).center().flexible(),
+                      const Text("上课周次")
+                          .textStyle(TextStyle(color: color))
+                          .center()
+                          .flexible(),
+                      const Text("上课时间段")
+                          .textStyle(TextStyle(color: color))
+                          .center()
+                          .flexible(),
+                      const Text("下课时间段")
+                          .textStyle(TextStyle(color: color))
+                          .center()
+                          .flexible(),
                     ],
                   ),
                   Row(
@@ -313,10 +284,10 @@ class _ClassAddWindowState extends State<ClassAddWindow> {
                         },
                         defaultPage: week - 1,
                         options: List.generate(
-                          7,
+                          weekList.length,
                           (index) => WheelChooseOptions(
                             data: index,
-                            hint: getWeekString(context, index),
+                            hint: weekList[index],
                           ),
                         ),
                       ).flexible(),
@@ -346,13 +317,7 @@ class _ClassAddWindowState extends State<ClassAddWindow> {
                           10,
                           (index) => WheelChooseOptions(
                             data: index + 1,
-                            hint: FlutterI18n.translate(
-                              context,
-                              "classtable.class_add.wheel_choose_hint",
-                              translationParams: {
-                                "index": (index + 1).toString()
-                              },
-                            ),
+                            hint: "第 ${index + 1} 节",
                           ),
                         ),
                       ).flexible()

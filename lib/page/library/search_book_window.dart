@@ -1,7 +1,6 @@
 // Copyright 2023 BenderBlog Rodriguez and contributors.
 // SPDX-License-Identifier: MPL-2.0
 
-import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:watermeter/page/public_widget/both_side_sheet.dart';
 import 'package:easy_refresh/easy_refresh.dart';
 import 'package:flutter/material.dart';
@@ -81,17 +80,14 @@ class _SearchBookWindowState extends State<SearchBookWindow>
           constraints: const BoxConstraints(maxWidth: 480),
           child: TextFormField(
             controller: text,
-            decoration: InputDecoration(
+            decoration: const InputDecoration(
               filled: true,
               fillColor: Colors.transparent,
-              hintText: FlutterI18n.translate(
-                context,
-                "library.search_here",
-              ),
+              hintText: "在此搜索",
               isDense: false,
-              contentPadding: const EdgeInsets.symmetric(vertical: 8.0),
-              prefixIcon: const Icon(Icons.search),
-              border: const OutlineInputBorder(
+              contentPadding: EdgeInsets.symmetric(vertical: 8.0),
+              prefixIcon: Icon(Icons.search),
+              border: OutlineInputBorder(
                 borderRadius: BorderRadius.all(Radius.circular(10)),
               ),
             ),
@@ -109,30 +105,12 @@ class _SearchBookWindowState extends State<SearchBookWindow>
         ),
         EasyRefresh(
           footer: ClassicFooter(
-            dragText: FlutterI18n.translate(
-              context,
-              "drag_text",
-            ),
-            readyText: FlutterI18n.translate(
-              context,
-              "ready_text",
-            ),
-            processingText: FlutterI18n.translate(
-              context,
-              "processing_text",
-            ),
-            processedText: FlutterI18n.translate(
-              context,
-              "processed_text",
-            ),
-            noMoreText: FlutterI18n.translate(
-              context,
-              "no_more_text",
-            ),
-            failedText: FlutterI18n.translate(
-              context,
-              "failed_text",
-            ),
+            dragText: '上拉请求更多'.tr,
+            readyText: '正在加载......'.tr,
+            processingText: '正在加载......'.tr,
+            processedText: '请求成功'.tr,
+            noMoreText: '数据没有更多'.tr,
+            failedText: '数据获取失败更多'.tr,
             infiniteOffset: null,
           ),
           onLoad: () async {
@@ -146,10 +124,7 @@ class _SearchBookWindowState extends State<SearchBookWindow>
                   child: BookInfoCard(toUse: searchList[index]),
                   onTap: () => BothSideSheet.show(
                     context: context,
-                    title: FlutterI18n.translate(
-                      context,
-                      "library.book_detail",
-                    ),
+                    title: "书籍详细信息",
                     child: BookDetailCard(
                       toUse: searchList[index],
                     ),
@@ -172,25 +147,17 @@ class _SearchBookWindowState extends State<SearchBookWindow>
             } else if (isSearching.value) {
               return const Center(child: CircularProgressIndicator());
             } else if (search.value.isNotEmpty) {
-              return EmptyListView(
-                text: FlutterI18n.translate(
-                  context,
-                  "library.no_result",
-                ),
-              );
+              return const EmptyListView(text: "没有结果");
             } else {
-              return Column(
+              return const Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const Icon(
+                  Icon(
                     Icons.search,
                     size: 96,
                   ),
-                  const Divider(color: Colors.transparent),
-                  Text(FlutterI18n.translate(
-                    context,
-                    "library.please_search",
-                  )),
+                  Divider(color: Colors.transparent),
+                  Text("请在上面搜索框搜索"),
                 ],
               );
             }

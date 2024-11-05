@@ -4,7 +4,6 @@
 import 'dart:io';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:jiffy/jiffy.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:styled_widget/styled_widget.dart';
@@ -189,22 +188,16 @@ class _ClassTablePageState extends State<ClassTablePage> {
       bool? confirm = await showDialog<bool>(
         context: context,
         builder: (context) => AlertDialog(
-          title: Text(FlutterI18n.translate(
-            context,
-            "confirm_title",
-          )),
-          content: Text(FlutterI18n.translate(
-            context,
-            "classtable.partner_classtable.override_dialog",
-          )),
+          title: const Text("确认对话框"),
+          content: const Text("目前有搭子课表数据，是否要覆盖？"),
           actions: [
             TextButton(
               onPressed: () => Navigator.of(context).pop(false),
-              child: Text(FlutterI18n.translate(context, "cancel")),
+              child: const Text("取消"),
             ),
             TextButton(
               onPressed: () => Navigator.of(context).pop(true),
-              child: Text(FlutterI18n.translate(context, "confirm")),
+              child: const Text("确定"),
             )
           ],
         ),
@@ -221,22 +214,11 @@ class _ClassTablePageState extends State<ClassTablePage> {
       if (mounted && result.isEmpty) {
         showToast(
           context: context,
-          msg: FlutterI18n.translate(
-            context,
-            "classtable.partner_classtable.no_file",
-          ),
+          msg: '未发现导入文件',
         );
       }
     } on MissingStoragePermissionException {
-      if (mounted) {
-        showToast(
-          context: context,
-          msg: FlutterI18n.translate(
-            context,
-            "classtable.partner_classtable.no_permission",
-          ),
-        );
-      }
+      if (mounted) showToast(context: context, msg: "未获取存储权限，无法读取文件");
     }
 
     if (mounted) {
@@ -256,19 +238,13 @@ class _ClassTablePageState extends State<ClassTablePage> {
         );
         showToast(
           context: context,
-          msg: FlutterI18n.translate(
-            context,
-            "classtable.partner_classtable.problem",
-          ),
+          msg: '好像导入文件有点问题:P',
         );
         return;
       }
       showToast(
         context: context,
-        msg: FlutterI18n.translate(
-          context,
-          "classtable.partner_classtable.success",
-        ),
+        msg: '导入成功',
       );
     }
   }
@@ -278,15 +254,11 @@ class _ClassTablePageState extends State<ClassTablePage> {
     if (haveClass) {
       return Scaffold(
           appBar: AppBar(
-            title: Text(classTableState.isPartner
-                ? FlutterI18n.translate(
-                    context,
-                    "classtable.partner_page_title",
-                  )
-                : FlutterI18n.translate(
-                    context,
-                    "classtable.page_title",
-                  )),
+            title: Text(
+              classTableState.isPartner
+                  ? "${classTableState.partnerName}的日程表"
+                  : "日程表",
+            ),
             leading: IconButton(
               icon: Icon(
                 Platform.isIOS || Platform.isMacOS
@@ -312,55 +284,34 @@ class _ClassTablePageState extends State<ClassTablePage> {
                 PopupMenuButton<String>(
                   itemBuilder: (BuildContext context) =>
                       <PopupMenuItem<String>>[
-                    PopupMenuItem<String>(
+                    const PopupMenuItem<String>(
                       value: 'A',
-                      child: Text(FlutterI18n.translate(
-                        context,
-                        "classtable.popup_menu.not_arranged",
-                      )),
+                      child: Text("查看未安排课程信息"),
                     ),
-                    PopupMenuItem<String>(
+                    const PopupMenuItem<String>(
                       value: 'B',
-                      child: Text(FlutterI18n.translate(
-                        context,
-                        "classtable.popup_menu.class_changed",
-                      )),
+                      child: Text("查看课程安排调整信息"),
                     ),
                     if (!classTableState.isPartner) ...[
-                      PopupMenuItem<String>(
+                      const PopupMenuItem<String>(
                         value: 'C',
-                        child: Text(FlutterI18n.translate(
-                          context,
-                          "classtable.popup_menu.add_class",
-                        )),
+                        child: Text("添加课程信息"),
                       ),
-                      PopupMenuItem<String>(
+                      const PopupMenuItem<String>(
                         value: 'D',
-                        child: Text(FlutterI18n.translate(
-                          context,
-                          "classtable.popup_menu.generate_ical",
-                        )),
+                        child: Text("生成日历文件"),
                       ),
-                      PopupMenuItem<String>(
+                      const PopupMenuItem<String>(
                         value: 'E',
-                        child: Text(FlutterI18n.translate(
-                          context,
-                          "classtable.popup_menu.generate_partner_file",
-                        )),
+                        child: Text("生成共享课表文件"),
                       ),
-                      PopupMenuItem<String>(
+                      const PopupMenuItem<String>(
                         value: 'F',
-                        child: Text(FlutterI18n.translate(
-                          context,
-                          "classtable.popup_menu.import_partner_file",
-                        )),
+                        child: Text("导入共享课表文件"),
                       ),
-                      PopupMenuItem<String>(
+                      const PopupMenuItem<String>(
                         value: 'G',
-                        child: Text(FlutterI18n.translate(
-                          context,
-                          "classtable.popup_menu.delete_partner_file",
-                        )),
+                        child: Text("删除共享课表文件"),
                       ),
                     ],
                   ],
@@ -400,14 +351,9 @@ class _ClassTablePageState extends State<ClassTablePage> {
                           await showDialog(
                             context: context,
                             builder: (context) => AlertDialog(
-                              title: Text(FlutterI18n.translate(
-                                context,
-                                "classtable.partner_classtable.share_dialog.title",
-                              )),
-                              content: Text(FlutterI18n.translate(
-                                context,
-                                "classtable.partner_classtable.share_dialog.content",
-                              )),
+                              title: const Text("请不要随意分享"),
+                              content: const Text(
+                                  "导出文件包括你的个人信息，请不要随意跟别人分享，或者发在大群里。"),
                               actions: [
                                 TextButton(
                                   onPressed: () => Navigator.of(context).pop(),
@@ -523,23 +469,11 @@ class _ClassTablePageState extends State<ClassTablePage> {
                             }
                           }
                           if (context.mounted) {
-                            showToast(
-                              context: context,
-                              msg: FlutterI18n.translate(
-                                context,
-                                "classtable.partner_classtable.save_dialog.success_message",
-                              ),
-                            );
+                            showToast(context: context, msg: "应该保存成功");
                           }
                         } on FileSystemException {
                           if (context.mounted) {
-                            showToast(
-                              context: context,
-                              msg: FlutterI18n.translate(
-                                context,
-                                "classtable.partner_classtable.save_dialog.failure_message",
-                              ),
-                            );
+                            showToast(context: context, msg: "文件创建失败，保存取消");
                           }
                         }
                         break;
@@ -549,34 +483,18 @@ class _ClassTablePageState extends State<ClassTablePage> {
                         bool? isDelete = await showDialog<bool>(
                           context: context,
                           builder: (context) => AlertDialog(
-                            title: Text(FlutterI18n.translate(
-                              context,
-                              "classtable.partner_classtable.delete_dialog.title",
-                            )),
-                            content: Text(FlutterI18n.translate(
-                              context,
-                              "classtable.partner_classtable.delete_dialog.message",
-                            )),
+                            title: const Text("确认对话框"),
+                            content: const Text("确定要清除共享课表吗？"),
                             actions: [
                               TextButton(
                                 onPressed: () =>
                                     Navigator.of(context).pop(false),
-                                child: Text(
-                                  FlutterI18n.translate(
-                                    context,
-                                    "cancel",
-                                  ),
-                                ),
+                                child: const Text("取消"),
                               ),
                               TextButton(
                                 onPressed: () =>
                                     Navigator.of(context).pop(true),
-                                child: Text(
-                                  FlutterI18n.translate(
-                                    context,
-                                    "confirm",
-                                  ),
-                                ),
+                                child: const Text("确定"),
                               )
                             ],
                           ),
@@ -586,10 +504,7 @@ class _ClassTablePageState extends State<ClassTablePage> {
                           classTableState.deletePartnerClass();
                           showToast(
                             context: context,
-                            msg: FlutterI18n.translate(
-                              context,
-                              "classtable.partner_classtable.delete_dialog.success_message",
-                            ),
+                            msg: '删除共享课表成功',
                           );
                         }
                     }
@@ -617,10 +532,7 @@ class _ClassTablePageState extends State<ClassTablePage> {
     } else {
       return Scaffold(
         appBar: AppBar(
-          title: Text(FlutterI18n.translate(
-            context,
-            "classtable.partner_classtable.page_title",
-          )),
+          title: const Text("日程表"),
           leading: IconButton(
             icon: Icon(
               Platform.isIOS || Platform.isMacOS
