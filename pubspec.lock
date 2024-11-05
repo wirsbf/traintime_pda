@@ -1088,12 +1088,11 @@ packages:
   receive_sharing_intent:
     dependency: "direct main"
     description:
-      path: "."
-      ref: HEAD
-      resolved-ref: "93c30707e8adb1180dcf34cc7ce7f7c1d7928421"
-      url: "https://github.com/wirsbf/receive_sharing_intent-1.8.0"
-    source: git
-    version: "1.8.0"
+      name: receive_sharing_intent
+      sha256: ec76056e4d258ad708e76d85591d933678625318e411564dcb9059048ca3a593
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.8.1"
   restart_app:
     dependency: "direct main"
     description:
